@@ -267,7 +267,10 @@ def train_avae(
             l_kl = kl_divergence(out["mu"], out["log_var"])
 
             # ── Stage classification loss (scaled by gamma_eff) ───────────
-            l_stage = F.binary_cross_entropy_with_logits(
+            # l_stage = F.binary_cross_entropy_with_logits(
+            #    out["stage_logit"].squeeze(-1), stage
+            # )
+            l_stage = F.mse_loss(
                 out["stage_logit"].squeeze(-1), stage
             )
 
